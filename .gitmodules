@@ -1,0 +1,3 @@
+[submodule "qentem"]
+	path = qentem
+	url = https://github.com/HaniAmmar/Qentem-Engine
