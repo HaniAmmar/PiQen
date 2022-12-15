@@ -5,7 +5,7 @@ module1 = Extension('PiQen',include_dirs = ['./qentem/Include'],
                     sources = ['piqen.cpp'], language='c++')
 
 setup (name = 'PiQen',
-       version = '1.8',
+       version = '1.9',
        description = 'Fast template rendering module',
        url = 'https://github.com/HaniAmmar/PiQen',
        ext_modules = [module1])
