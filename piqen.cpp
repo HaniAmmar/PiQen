@@ -22,12 +22,10 @@ static PyObject *PiQenRender(PyObject *self, PyObject *args) {
         return nullptr;
     }
 
-    const Value<char> value =
-        Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
+    const Value<char> value = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
 
     StringStream<char> ss;
     Template::Render(temp, Qentem::StringUtils::Count(temp), &value, &ss);
 
-    return PyUnicode_DecodeUTF8(ss.First(),
-                                static_cast<Py_ssize_t>(ss.Length()), nullptr);
+    return PyUnicode_DecodeUTF8(ss.First(), static_cast<Py_ssize_t>(ss.Length()), nullptr);
 }
