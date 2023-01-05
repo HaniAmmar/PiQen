@@ -15,17 +15,15 @@ using Qentem::Value;
  */
 
 static PyObject *PiQenRender(PyObject *self, PyObject *args) {
-    const char *temp;
+    const char *content;
     const char *data;
 
-    if (!PyArg_ParseTuple(args, "ss", &temp, &data)) {
+    if (!PyArg_ParseTuple(args, "ss", &content, &data)) {
         return nullptr;
     }
 
-    const Value<char> value = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
+    const Value<char>        value  = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
+    const StringStream<char> stream = Template::Render(content, Qentem::StringUtils::Count(content), value);
 
-    StringStream<char> ss;
-    Template::Render(temp, Qentem::StringUtils::Count(temp), &value, &ss);
-
-    return PyUnicode_DecodeUTF8(ss.First(), static_cast<Py_ssize_t>(ss.Length()), nullptr);
+    return PyUnicode_DecodeUTF8(stream.First(), static_cast<Py_ssize_t>(stream.Length()), nullptr);
 }
