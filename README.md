@@ -47,6 +47,10 @@ template = '''<div>{var:v1}</div>
 data = '{"v1":"Qentem","sub-list1":{"sv1":"PiQen"},"sub-list2":[77]}'
 
 print(PiQen.Render(template, data))
+
+
+# To cache the template for multi-rendering, and a name:
+# echo PiQen.Render(template, data, 'page1')
 ```
 
 ### Math

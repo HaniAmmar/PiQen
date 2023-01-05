@@ -1,6 +1,5 @@
 #include "piqen.hpp"
 
-using Qentem::SizeT;
 using Qentem::StringStream;
 using Qentem::Template;
 using Qentem::Value;
@@ -15,15 +14,33 @@ using Qentem::Value;
  */
 
 static PyObject *PiQenRender(PyObject *self, PyObject *args) {
+    using QTagBit = Qentem::Array<Qentem::Template::TagBit<char>>;
+    using QHArray = Qentem::HArray<QTagBit, char>;
+
     const char *content;
     const char *data;
+    const char *name;
 
-    if (!PyArg_ParseTuple(args, "ss", &content, &data)) {
-        return nullptr;
+    if (PyArg_ParseTuple(args, "ss|s", &content, &data, &name)) {
+        static QHArray                    cache;
+        static Qentem::StringStream<char> stream;
+        static QTagBit                    tags_cache;
+        QTagBit                          *tags;
+
+        stream.Clear();
+
+        if (name != nullptr) {
+            tags = &(cache.GetOrAdd(name, Qentem::StringUtils::Count(name)));
+        } else {
+            tags_cache.Clear();
+            tags = &tags_cache;
+        }
+
+        const Value<char> value = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
+        Template::Render(content, Qentem::StringUtils::Count(content), value, stream, *tags);
+
+        return PyUnicode_DecodeUTF8(stream.First(), static_cast<Py_ssize_t>(stream.Length()), nullptr);
     }
 
-    const Value<char>        value  = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
-    const StringStream<char> stream = Template::Render(content, Qentem::StringUtils::Count(content), value);
-
-    return PyUnicode_DecodeUTF8(stream.First(), static_cast<Py_ssize_t>(stream.Length()), nullptr);
+    return nullptr;
 }
