@@ -14,7 +14,7 @@ using Qentem::Value;
  */
 
 static PyObject *PiQenRender(PyObject *self, PyObject *args) {
-    using QTagBit = Qentem::Array<Qentem::Template::TagBit<char>>;
+    using QTagBit = Qentem::Array<Qentem::Template::TagBit>;
     using QHArray = Qentem::HArray<QTagBit, char>;
 
     const char *content;

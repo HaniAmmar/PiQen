@@ -95,11 +95,11 @@ import PiQen
 
 template = '''
 <loop set="object" value="item">
-    <div>item[var1] item[var2] item[var3] item[var4]</div>
+    <div>{var:item[var1]} {var:item[var2]} {var:item[var3]} {var:item[var4]}</div>
 </loop>
 <br />
 <loop set="array" value="item">
-    <div>item[0] item[1] item[2] item[3]</div>
+    <div>{var:item[0]} {var:item[1]} {var:item[2]} {var:item[3]}</div>
 </loop>
 '''
 
