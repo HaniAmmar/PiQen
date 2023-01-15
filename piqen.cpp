@@ -1,20 +1,22 @@
 #include "piqen.hpp"
 
+using Qentem::JSON;
 using Qentem::StringStream;
+using Qentem::StringUtils;
 using Qentem::Template;
 using Qentem::Value;
 
 /*
- * I have made this fuction in a way that does not copy anything, nor convert
+ * I made a fuction that does not copy anything, nor convert
  * it, then I realized that python stores strings in multiple encoding (UTF8,
  * 16, 32) at the same time for the template and the data, depending on the
- * characters inside their strings, which made everything hard to try to unify,
- * and build something that is fast. But since Python is not about performance,
- * I made the code in away that is more stable, and simple.
+ * characters inside strings, which made everything hard to try and unify,
+ * But since Python is not about performance, I made this function in away that
+ * is more stable, and simple.
  */
 
 static PyObject *PiQenRender(PyObject *self, PyObject *args) {
-    using QTagBit = Qentem::Array<Qentem::Template::TagBit>;
+    using QTagBit = Qentem::Array<Qentem::Tags::TagBit>;
     using QHArray = Qentem::HArray<QTagBit, char>;
 
     const char *content;
@@ -22,10 +24,10 @@ static PyObject *PiQenRender(PyObject *self, PyObject *args) {
     const char *name;
 
     if (PyArg_ParseTuple(args, "ss|s", &content, &data, &name)) {
-        static QHArray                    cache;
-        static Qentem::StringStream<char> stream;
-        static QTagBit                    tags_cache;
-        QTagBit                          *tags;
+        static QHArray            cache;
+        static StringStream<char> stream;
+        static QTagBit            tags_cache;
+        QTagBit                  *tags;
 
         stream.Clear();
 
@@ -36,8 +38,8 @@ static PyObject *PiQenRender(PyObject *self, PyObject *args) {
             tags = &tags_cache;
         }
 
-        const Value<char> value = Qentem::JSON::Parse(data, Qentem::StringUtils::Count(data));
-        Template::Render(content, Qentem::StringUtils::Count(content), value, stream, *tags);
+        const Value<char> value = JSON::Parse(data, StringUtils::Count(data));
+        Template::Render(content, StringUtils::Count(content), value, stream, *tags);
 
         return PyUnicode_DecodeUTF8(stream.First(), static_cast<Py_ssize_t>(stream.Length()), nullptr);
     }
