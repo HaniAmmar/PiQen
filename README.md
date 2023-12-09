@@ -10,7 +10,7 @@
     -   [If Condition](#if-condition)
 -   [Live Testing](#live-testing)
 -   [Reference](#reference)
--   [Install Module1](#install-module1)
+-   [Install](#install)
 -   [License](#license)
 
 ## What Is PiQen
@@ -187,7 +187,9 @@ Templates can be tested live @ [JQen Tool](https://haniammar.github.io/JQen-Tool
 
 Syntax @ [Qentem-Engine/Template.md](https://github.com/HaniAmmar/Qentem-Engine/blob/main/Documentation/Template.md).
 
-## Install Module1
+## Install
+
+Make sure you have `setuptools` installed:
 
 ```shell
 git submodule update --init
