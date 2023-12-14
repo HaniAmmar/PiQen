@@ -49,7 +49,7 @@ data = '{"v1":"Qentem","sub-list1":{"sv1":"PiQen"},"sub-list2":[77]}'
 print(PiQen.Render(template, data))
 
 
-# To cache the template for multi-rendering, and a name:
+# To cache the template for multi-rendering, add a name:
 # echo PiQen.Render(template, data, 'page1')
 ```
 
@@ -60,15 +60,13 @@ import PiQen
 
 template = '''
 <div>0.1+0.2 is: {math: 0.1  +   0.2 }</div>
-<div>{var:Equation} = {math:{var:Equation}}; (1+8+1)</div>
+<div>{var:one}+{var:four}*{var:two}+{var:one} = {math:{var:one}+{var:four}*{var:two}+{var:one}}; (1+8+1)</div>
 <div>6^2 = {math:6^2}</div>
-<div>--1 = {math:--1}</div>
 <div>{var:one}+{var:three} = {math:{var:one}+{var:three}}</div>
 <div>9 % 5 = {math:9 % 5}</div>
 '''
 
-data = '{"Equation":"1+4*2+1","one":"1","three":"3"}'
-
+data = '{"one":1,"two":2,"three":3,"four":4}'
 print(PiQen.Render(template, data))
 ```
 
