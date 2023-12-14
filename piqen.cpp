@@ -32,7 +32,7 @@ static PyObject *PiQenRender(PyObject *self, PyObject *args) {
         stream.Clear();
 
         if (name != nullptr) {
-            tags = &(cache.GetOrAdd(name, Qentem::StringUtils::Count(name)));
+            tags = &(cache.Get(name, Qentem::StringUtils::Count(name)));
         } else {
             tags_cache.Clear();
             tags = &tags_cache;
@@ -41,7 +41,7 @@ static PyObject *PiQenRender(PyObject *self, PyObject *args) {
         const Value<char> value = JSON::Parse(data, StringUtils::Count(data));
         Template::Render(content, StringUtils::Count(content), value, stream, *tags);
 
-        return PyUnicode_DecodeUTF8(stream.First(), static_cast<Py_ssize_t>(stream.Length()), nullptr);
+        return PyUnicode_DecodeUTF8(stream.First(), Py_ssize_t(stream.Length()), nullptr);
     }
 
     return nullptr;
