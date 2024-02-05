@@ -149,25 +149,25 @@ template = '''
 
 <if case="{var:1} == 0">
 Zero!
-<else />
+<else>
 <div>Not {var:0} but {var:1}.</div>
 </if>
 
 <if case="{var:2} == 0">
 Zero!
-<elseif case="{var:2} == 2" />
+<else if case="{var:2} == 2">
 <div>Two!</div>
-<else />
+<else>
 Not zero or one.
 </if>
 
 <if case="{var:2} == 0">
 Zero!
-<elseif case="{var:2} == 5" />
+<else if case="{var:2} == 5">
 Two!
-<elseif case="{var:3} == 3" />
+<else if case="{var:3} == 3">
 <div>{var:3}</div>
-<else />
+<else>
 Not zero or one or two.
 </if>
 '''
@@ -199,7 +199,7 @@ sudo python setup.py install
 
 > MIT License
 >
-> Copyright (c) 2021 Hani Ammar
+> Copyright (c) 2024 Hani Ammar
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
